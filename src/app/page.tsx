@@ -1,14 +1,13 @@
 "use client";
 
 import { httpRequest } from "@/utils/http";
-import { useProjects } from "@/utils/store/ProjectContext";
+import { useSingleProject } from "@/utils/store/SingleProjectContext";
 import { useUser } from "@/utils/store/UserContext";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { setUser } = useUser();
-  const { fetchProjects } = useProjects()
+  const {projectId, setProjectId} = useSingleProject()
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -21,6 +20,11 @@ export default function Home() {
       if (response) {
         setUser(response.user);
         localStorage.setItem("token", response.token);
+
+        if(!localStorage.getItem("projectId")){
+          setProjectId("0")
+        }
+        
         router.push("/overview");
       }
     } catch (error) {
