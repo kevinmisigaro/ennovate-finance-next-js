@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { setUser } = useUser();
-  const {projectId, setProjectId} = useSingleProject()
+  const {setProjectId} = useSingleProject()
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -24,7 +24,7 @@ export default function Home() {
         if(!localStorage.getItem("projectId")){
           setProjectId("0")
         }
-        
+
         router.push("/overview");
       }
     } catch (error) {

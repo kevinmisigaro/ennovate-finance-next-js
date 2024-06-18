@@ -1,7 +1,6 @@
 import { useProjects } from "@/utils/store/ProjectContext";
 import { useSingleProject } from "@/utils/store/SingleProjectContext";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
 function ProjectsDropDown() {
