@@ -18,3 +18,10 @@ export interface User {
     amount: number
     project: Project
   }
+
+  export interface Income{
+    id: number
+    title: string
+    amount: number
+    project: Project
+  }

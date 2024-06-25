@@ -40,6 +40,9 @@ function Page() {
     try {
       const response = await httpRequest("GET", "/dashboard");
 
+      console.log(response);
+      
+
       if (response) {
         setLoading(false);
         setValues({
@@ -52,7 +55,13 @@ function Page() {
   };
 
   useEffect(() => {
-    projectId == "0" ? fetchDashboard() : fetchSingleDashboard();
+    if(localStorage.getItem("projectId") == "0"){
+      console.log(projectId);
+      
+      fetchDashboard()
+    }else{
+      fetchSingleDashboard();
+    }
   }, [projectId]);
 
   return (
