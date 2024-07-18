@@ -17,6 +17,7 @@ export interface User {
     title: string
     amount: number
     project: Project
+    count: number
   }
 
   export interface Income{
@@ -24,4 +25,5 @@ export interface User {
     title: string
     amount: number
     project: Project
+    count: number
   }

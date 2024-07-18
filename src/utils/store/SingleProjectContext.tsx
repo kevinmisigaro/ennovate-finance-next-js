@@ -1,6 +1,8 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { httpRequest } from '../http';
+import { Project } from '../interfaces';
 
 interface SingleProjectContextType {
   projectId: string | null;
@@ -19,12 +21,32 @@ export const useSingleProject = () => {
 
 export const SingleProjectProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [projectId, setProjectIdState] = useState<string | null>(null);
+  const [projects, setProjects] = useState<Project[] | null>(null);
+  
+  const fetchProjects = async () => {
+    try {
+      const response = await httpRequest("GET","/projects");
+
+      if(response){
+        setProjects(response)
+        if(response.length > 0){
+          const storedProjectId = localStorage.getItem('projectId');
+          if (storedProjectId) {
+            setProjectIdState(storedProjectId);
+          }
+        } else{
+          localStorage.setItem("projectId", "0")
+          setProjectIdState("0");
+        }
+      }
+
+    } catch (error) {
+      console.error("Failed to fetch projects:", error);
+    }
+  };
 
   useEffect(() => {
-    const storedProjectId = localStorage.getItem('projectId');
-    if (storedProjectId) {
-      setProjectIdState(storedProjectId);
-    }
+   fetchProjects()
   }, []);
 
   const setProjectId = (id: string) => {

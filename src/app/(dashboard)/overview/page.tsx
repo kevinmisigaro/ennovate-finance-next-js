@@ -31,6 +31,8 @@ function Page() {
           expenditureSum: response.expenditures,
           incomeSum: response.incomes,
         });
+        console.log(response.incomes);
+        
       }
     } catch (error) {}
   };
@@ -50,14 +52,14 @@ function Page() {
           expenditureSum: response.expenditures,
           incomeSum: response.incomes,
         });
+        console.log( response.projects);
+        
       }
     } catch (error) {}
   };
 
   useEffect(() => {
     if(localStorage.getItem("projectId") == "0"){
-      console.log(projectId);
-      
       fetchDashboard()
     }else{
       fetchSingleDashboard();

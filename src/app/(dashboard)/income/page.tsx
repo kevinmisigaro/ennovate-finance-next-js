@@ -18,6 +18,8 @@ function Page() {
       if (response) {
         setLoading(false);
         setIncome(response);
+        console.log(response);
+        
       }
     } catch (error) {}
   };
@@ -45,6 +47,7 @@ function Page() {
                 <tr>
                   <th>Title</th>
                   <th>Amount</th>
+                  <th>Count</th>
                   <th>Project</th>
                 </tr>
               </thead>
@@ -53,6 +56,7 @@ function Page() {
                   <tr key={i}>
                     <td>{e.title}</td>
                     <td>{Intl.NumberFormat().format(e.amount)}</td>
+                    <td>{e.count}</td>
                     <td>{e.project.name}</td>
                   </tr>
                 ))}

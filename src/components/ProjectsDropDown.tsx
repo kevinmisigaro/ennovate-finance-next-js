@@ -6,7 +6,7 @@ import { FaPlus } from "react-icons/fa";
 function ProjectsDropDown() {
   const { projects } = useProjects();
   const router = useRouter();
-  const {projectId , setProjectId} = useSingleProject()
+  const { projectId, setProjectId } = useSingleProject();
 
   const changeProject = (id: number) => {
     setProjectId(id.toString());
@@ -19,7 +19,7 @@ function ProjectsDropDown() {
           ? "Projects"
           : projects?.find((x) => x.id == parseInt(projectId!))?.name}
       </div>
-      {projects !== undefined && (
+      {projects !== undefined ? (
         <ul
           tabIndex={0}
           className="dropdown-content z-[1] menu p-2 shadow bg-[#ffbb00] text-black rounded-box w-32"
@@ -62,6 +62,16 @@ function ProjectsDropDown() {
             </div>
           </li>
         </ul>
+      ) : (
+        <div
+          onClick={() => {
+            router.push("/createproject");
+          }}
+          className="flex flex-row items-center gap-x-2"
+        >
+          <FaPlus />
+          <div>New</div>
+        </div>
       )}
     </div>
   );
