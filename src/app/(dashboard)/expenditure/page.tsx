@@ -3,7 +3,9 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import { httpRequest } from "@/utils/http";
 import { Expenditure } from "@/utils/interfaces";
+import moment from "moment";
 import { useEffect, useState } from "react";
+import DataTable from "react-data-table-component";
 import { FadeLoader } from "react-spinners";
 
 function Page() {
@@ -22,12 +24,42 @@ function Page() {
     } catch (error) {}
   };
 
+  const columns = [
+    {
+      name: "Title",
+      selector: (row: Expenditure) => row.title,
+      sortable: true
+    },
+    {
+      name: "Amount",
+      selector: (row: Expenditure) => Intl.NumberFormat().format(row.amount),
+      sortable: true
+    },
+    {
+      name: "Count",
+      selector: (row: Expenditure) => row.count,
+      sortable: true
+    },
+    {
+      name: "Project",
+      selector: (row: Expenditure) => row.project.name,
+      sortable: true
+    },
+    {
+      name: "Date",
+      selector: (row: Expenditure) => moment(row.created_at).format("DD-MM-Y"),
+      sortable: true
+    },
+  ];
+
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <DashboardLayout>
+     <div className="h-screen">
+     <div className="text-xl mb-5 font-bold">Expenditure</div>
       <div>
         {loading ? (
           <div className="flex flex-row items-center justify-center">
@@ -35,30 +67,11 @@ function Page() {
           </div>
         ) : (
           <div>
-            <table className="table">
-              {/* head */}
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Amount</th>
-                  <th>Count</th>
-                  <th>Project</th>
-                </tr>
-              </thead>
-              <tbody>
-                {expenditure.map((e, i) => (
-                  <tr key={i}>
-                    <td>{e.title}</td>
-                    <td>{Intl.NumberFormat().format(e.amount)}</td>
-                    <td>{e.count}</td>
-                    <td>{e.project.name}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DataTable className="border border-gray-400" columns={columns} data={expenditure} selectableRows />
           </div>
         )}
       </div>
+     </div>
     </DashboardLayout>
   );
 }

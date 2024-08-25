@@ -18,6 +18,8 @@ export default function Home() {
       });
 
       if (response) {
+        console.log(response);
+        
         setUser(response.user);
         localStorage.setItem("token", response.token);
 

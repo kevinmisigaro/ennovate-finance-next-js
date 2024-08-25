@@ -15,7 +15,7 @@ function SideMenu() {
   ];
 
   return (
-    <div className="basis-2/12 bg-black h-screen flex flex-col gap-y-8 text-white px-5 py-6 font-semibold">
+    <div className="basis-2/12 bg-black flex flex-col gap-y-8 text-white px-5 py-6 font-semibold">
       {menuItems.map((m, i) => (
         <a href={m.link} key={i}>
           {m.text}

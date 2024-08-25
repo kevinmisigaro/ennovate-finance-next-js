@@ -18,6 +18,7 @@ export interface User {
     amount: number
     project: Project
     count: number
+    created_at: Date
   }
 
   export interface Income{
@@ -26,4 +27,5 @@ export interface User {
     amount: number
     project: Project
     count: number
+    created_at: Date
   }
